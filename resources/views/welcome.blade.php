@@ -4,7 +4,7 @@
 <div class="flex text-center sm:pt-0">
     <img src="https://cdn.freebiesupply.com/logos/large/2x/laravel-1-logo-png-transparent.png" alt="logo" width="300px">
 </div>
-<div class="container">
+<div class="container text-center py-5">
     <h2>Featured Post:</h2>
     @if(count($posts) > 0)
         @foreach($posts->random(min(3,count($posts))) as $post)

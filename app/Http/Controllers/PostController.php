@@ -42,6 +42,29 @@ class PostController extends Controller
         return view('posts.index')->with('posts', $posts);
     }
 
+   public function featuredPost()
+   {
+        $posts = Post::all();
+        return view('welcome')->with('posts', $posts);
+   }
 
+    // action for showing only the posts authored by the authenticated user.
+    public function myPosts()
+    {
+        if(Auth::user()){
+            $posts = Auth::user()->posts;
+
+            return view('posts.index')->with('posts', $posts);
+        } else {
+            return redirect('/login');
+        }
+    }
+
+    // action that will return a view showing a specific post using the the URL parameter $id to query for the database entry to be shown.
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('posts.show')->with('post', $post);
+    }
 
 }

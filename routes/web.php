@@ -16,11 +16,16 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {
+    $post = App\Models\Post::random(3);
+    return view('welcome', compact('posts'));
+});*/
+
+
 
 Auth::routes();
+
+Route::get('/', [PostController::class, 'featuredPost']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -32,3 +37,10 @@ Route::post('/posts', [PostController::class, 'store']);
 
 // define a route that will return a view containing all the posts.
 Route::get('/posts', [PostController::class, 'index']);
+
+// define a route that will return a view containing only the authenticated user's posts.
+Route::get('/myPosts', [PostController::class, 'myPosts']);
+
+// define a route wherein a view showing a specific post with the matching URL parameter ID will be returned to the user.
+Route::get('/posts/{id}', [PostController::class, 'show']);
+

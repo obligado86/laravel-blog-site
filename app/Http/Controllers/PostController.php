@@ -100,6 +100,7 @@ class PostController extends Controller
         $post = Post::find($id);
         if(Auth::user()->id == $post->user_id){
             $post->isActive = false;
+            $post->save();
         } 
         return redirect('/posts');
     }

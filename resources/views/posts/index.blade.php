@@ -2,7 +2,7 @@
 
 @section('content')
 
-	@if(count($posts) > 0 && $posts->isActive == true)
+	@if(count($posts) > 0)
 		@foreach($posts as $post)
 			<div class="card text-center">
 				<div class="card-body">

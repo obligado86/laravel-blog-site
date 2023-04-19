@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->boolean('isActive');
         });
     }
 

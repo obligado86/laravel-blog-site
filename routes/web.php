@@ -44,6 +44,11 @@ Route::get('/myPosts', [PostController::class, 'myPosts']);
 // define a route wherein a view showing a specific post with the matching URL parameter ID will be returned to the user.
 Route::get('/posts/{id}', [PostController::class, 'show']);
 
+// define route for viewing edit post view
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts-edit');
 
+// define a route that will overwrite an exsisting post
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts-update');
+
+// define a route that will delete a post of the matching url parameter
+Route::put('/posts/{id}/delete', [PostController::class, 'archive']);

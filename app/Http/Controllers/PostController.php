@@ -26,6 +26,7 @@ class PostController extends Controller
             $post->content = $request->input('content');
             // get the id of the authenticated user and set it as the foreign key for the user_id of the new post.
             $post->user_id = (Auth::user()->id);
+            $post->isActive = true;
             // save this $post object into the database.
             $post->save();
 
@@ -67,6 +68,7 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
+    //action that will return view edit post form
     public function edit($id)
     {   
         if(Auth::user()){
@@ -81,18 +83,25 @@ class PostController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        if(Auth::user()){
-            $post = Post::find($id);
 
+    public function update(Request $request, $id)
+    {   
+        $post = Post::find($id);
+        if(Auth::user()->id == $post->user_id){   
             $post->title = $request->input('title');
             $post->content = $request->input('content');
             $post->save();
-            return redirect('/posts');
-        } else {
-            return redirect('/login');
         }
+        return redirect('/posts');
+    }
+
+    public function archive($id)
+    {
+        $post = Post::find($id);
+        if(Auth::user()->id == $post->user_id){
+            $post->isActive = false;
+        } 
+        return redirect('/posts');
     }
 
 }

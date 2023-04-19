@@ -2,6 +2,7 @@
 
 @section('content')
 	<div class="card">
+		@if($post->isActive === true)
 		<div class="card-body">
 			<h2 class="card-title">{{$post->title}}</h2>
 			<p class="card-subtitle text-muted">Author: {{$post->user->name}}</p>
@@ -11,5 +12,8 @@
 				<a href="/posts" class="card-link">View all posts</a>
 			</div>
 		</div>
+		@else
+		<h2>not found</h2>
+		@endif
 	</div>
 @endsection

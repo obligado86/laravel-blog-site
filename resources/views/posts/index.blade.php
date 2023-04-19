@@ -2,7 +2,7 @@
 
 @section('content')
 
-	@if(count($posts) > 0)
+	@if(count($posts) > 0 && $posts->isActive == true)
 		@foreach($posts as $post)
 			<div class="card text-center">
 				<div class="card-body">
@@ -14,8 +14,8 @@
 				@if(Auth::user())
 					@if(Auth::user()->id == $post->user->id)
 						<div class="card-footer">
-							<form method="POST" action="/posts/{{$post->id}}">
-								@method('DELETE')
+							<form method="POST" action="/posts/{{$post->id}}/delete">
+								@method('PUT')
 								@csrf
 								<a href="/posts/{{$post->id}}/edit" class="btn btn-primary">Edit Post</a>
 								<button type="submit" class="btn btn-danger">Delete Post</button>

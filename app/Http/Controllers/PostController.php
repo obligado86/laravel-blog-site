@@ -76,6 +76,8 @@ class PostController extends Controller
             } else {
                 return redirect('/posts/' . $id);
             }
+        } else {
+            return redirect('/login');
         }
     }
 

@@ -67,4 +67,30 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
+    public function edit($id)
+    {   
+        if(Auth::user()){
+            $post = Post::find($id);
+            if(Auth::user()->id === $post->user_id) {
+                return view('posts.edit', compact('post'));
+            } else {
+                return redirect('/posts/' . $id);
+            }
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        if(Auth::user()){
+            $post = Post::find($id);
+
+            $post->title = $request->input('title');
+            $post->content = $request->input('content');
+            $post->save();
+            return redirect('/posts');
+        } else {
+            return redirect('/login');
+        }
+    }
+
 }

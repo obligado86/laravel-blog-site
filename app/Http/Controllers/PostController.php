@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // access the authenticated user via Auth Facade
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\PostLike;
 
 class PostController extends Controller
 {
@@ -23,6 +24,7 @@ class PostController extends Controller
             $post = new Post;
             // define the properties of the $post object using the received form data.
             $post->title = $request->input('title');
+            $post->image = $request->input('image');
             $post->content = $request->input('content');
             // get the id of the authenticated user and set it as the foreign key for the user_id of the new post.
             $post->user_id = (Auth::user()->id);
@@ -42,6 +44,12 @@ class PostController extends Controller
         $posts = Post::all();
         return view('posts.index')->with('posts', $posts);
     }
+
+    /*public function index()
+    {
+        $posts = Post::where('is_active', true)->get();
+        return view('posts.index')->with('posts', $posts);
+    }*/
 
    public function featuredPost()
    {
@@ -103,6 +111,48 @@ class PostController extends Controller
             $post->save();
         } 
         return redirect('/posts');
+    }
+
+    public function unarchive($id)
+    {
+        if(Auth::user()->id == $post->user_id){
+            $post->isActive = true;
+            $post->save();
+        } 
+        return redirect('/posts');
+    }
+
+    public function like($id)
+    {
+        $post = Post::find($id);
+        $user_id = Auth::user()->id;
+        if($post->user_id != $user_id){
+            // checks if a post like has been made by the login user
+            if($post->likes->contains('user_id', $user_id)){
+                // delete the like made by the user to unlike the post.
+                PostLike::where('post_id', $post->id)->where('user_id', $user_id)->delete();
+            } else {
+                $postLike = new PostLike;
+                $postLike->post_id = $post->id;
+                $postLike->user_id = $user_id;
+                $postLike->save();
+            }
+            return redirect("/posts/$id");
+        }
+    }
+
+    public function comment(Request $request, $id)
+    {
+        $post = Post::find($id);
+        $user_id = Auth::user()->id;
+        if(Auth::user()){
+            $postComment = new PostComment;
+            $postComment->content = $request->input('content');
+            $postComment->post_id = $post->id;
+            $postComment->user_id = $user_id;
+            $postComment->save();
+        }
+        return redirect("/posts/$id");
     }
 
 }

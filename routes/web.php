@@ -52,3 +52,9 @@ Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts-update
 
 // define a route that will delete a post of the matching url parameter
 Route::put('/posts/{id}/delete', [PostController::class, 'archive']);
+
+Route::get('posts/{id}/unarchive', [PostController::class, 'unarchive']);
+
+Route::put('/posts/{id}/like', [PostController::class, 'like']);
+
+Route::post('/posts/{id}/comment', [PostController::class, 'comment']);

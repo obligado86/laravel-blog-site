@@ -48,5 +48,15 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Post');
     }
 
+    // define a noe to many relationship between the user model and PostLike model
+    public function likes()
+    {
+        return $this->hasMany('App\Models\PostLike');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\PostComment');
+    }
 
 }

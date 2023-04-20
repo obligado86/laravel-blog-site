@@ -10,6 +10,10 @@
 			<input type="text" name="title" id="title" class="form-control" value="{{$post->title}}">
 		</div>
 		<div class="form-group">
+			<label for="image">Image:</label>
+			<input type="text" name="image" id="title" class="form-control">
+		</div>
+		<div class="form-group">
 			<label for="content">Content:</label>
 			<textarea class="form-control" id="content" name="content" rows="3">{{$post->content}}</textarea>
 		</div>

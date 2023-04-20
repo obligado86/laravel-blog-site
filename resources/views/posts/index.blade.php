@@ -25,7 +25,7 @@
 				@endif
 			</div>
 		@endforeach
-
+		
 	@else
 		<div>
 			<h2>There are no posts to show</h2>

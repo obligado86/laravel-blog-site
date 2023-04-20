@@ -42,7 +42,7 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::get('/myPosts', [PostController::class, 'myPosts']);
 
 // define a route wherein a view showing a specific post with the matching URL parameter ID will be returned to the user.
-Route::get('/posts/{id}', [PostController::class, 'show']);
+Route::get('/posts/{id}', [PostController::class, 'show', 'showComment']);
 
 // define route for viewing edit post view
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts-edit');

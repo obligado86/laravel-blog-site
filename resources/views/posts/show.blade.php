@@ -2,7 +2,6 @@
 
 
 @section('content')
-
 	<div class="card">
 		<div class="card-body">
 			<h2 class="card-tilte">{{$post->title}}</h2>
@@ -26,7 +25,7 @@
 			@endif
 
 			@if(Auth::user())
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comment-modal" data-bs-whatever="@mdo">Comment</button>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comment-modal">Comment</button>
 			@endif
 
 			<div class="modal fade" id="comment-modal" tabindex="-1">
@@ -44,11 +43,9 @@
 			            			<label for="content" class="col-form-label">Comment:</label>
 			            			<textarea class="form-control" id="content" name="content" rows="3"></textarea>
 			          			</div>
+			          			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			        			<button type="submit" class="btn btn-primary">Post</button>
 			        		</form>
-			      		</div>
-			      		<div class="modal-footer">
-			        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        		<button type="button" class="btn btn-primary">Post</button>
 			      		</div>
 			    	</div>
 			  	</div>
@@ -60,4 +57,5 @@
 			</div>
 		</div>
 	</div>
+	
 @endsection

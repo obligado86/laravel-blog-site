@@ -73,6 +73,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+        //$comments = PostComment::where('post_id', $post->id);
         return view('posts.show')->with('post', $post);
     }
 
@@ -153,6 +154,12 @@ class PostController extends Controller
             $postComment->save();
         }
         return redirect("/posts/$id");
+    }
+
+    public function showComment($id)
+    {
+        $comments = PostComment::all();
+        return view('posts.show')->with('comments', $comments);
     }
 
 }

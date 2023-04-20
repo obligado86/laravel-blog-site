@@ -4,6 +4,7 @@
 
 	@if(count($posts) > 0)
 		@foreach($posts as $post)
+			@if($post->isActive == true)
 			<div class="card text-center">
 				<div class="card-body">
 					<h4 class="card-title mb-3"><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
@@ -24,8 +25,9 @@
 					@endif
 				@endif
 			</div>
+			@endif
 		@endforeach
-		
+
 	@else
 		<div>
 			<h2>There are no posts to show</h2>

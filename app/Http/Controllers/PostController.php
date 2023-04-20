@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\PostLike;
+use App\Models\PostComment;
 
 class PostController extends Controller
 {
@@ -73,8 +74,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        //$comments = PostComment::where('post_id', $post->id);
-        return view('posts.show')->with('post', $post);
+        $comments = PostComment::where('post_id', $id)->get();
+        $likes = PostLike::where('post_id', $id)->get();
+        return view('posts.show', compact('post', 'comments', 'likes'));
     }
 
     //action that will return view edit post form
@@ -147,19 +149,22 @@ class PostController extends Controller
         $post = Post::find($id);
         $user_id = Auth::user()->id;
         if(Auth::user()){
-            $postComment = new PostComment;
-            $postComment->content = $request->input('content');
-            $postComment->post_id = $post->id;
-            $postComment->user_id = $user_id;
-            $postComment->save();
+            $comment = new PostComment;
+            $comment->post_id = $post->id;
+            $comment->user_id = $user_id;
+            $comment->content = $request->input('content');
+            $comment->save();
+            return redirect("/posts/$id");
+        } else {
+            return redirect("/login");
         }
-        return redirect("/posts/$id");
+        
     }
 
-    public function showComment($id)
+    /*public function showComment($id)
     {
         $comments = PostComment::all();
-        return view('posts.show')->with('comments', $comments);
-    }
+        return view('posts.comments')->with('comments', $comments);
+    }*/
 
 }
